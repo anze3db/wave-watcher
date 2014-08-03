@@ -4,9 +4,6 @@ from time import strptime
 
 class Parser(object):
 
-  def __init__(self, **kw):
-    self.__dict__.update(kw)
-
   @staticmethod
   def parse(xml):
     tree = etree.fromstring(str(xml))
