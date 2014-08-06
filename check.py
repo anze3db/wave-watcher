@@ -16,4 +16,3 @@ if len(result) > 0:
   send_email_alert("\n".join(result))
 else:
   print datetime.now(), "> No surf :/"
-  send_email_alert("")

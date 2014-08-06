@@ -3,43 +3,15 @@ import os
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
+recipients = ['ensmotko@gmail.com', 'zidarsk8@gmail.com']
 me = "wave-watcher@psywerx.net"
-you = "ensmotko@gmail.com"
-
-
-def _get_msg_no_alert():
-  msg = MIMEMultipart('alternative')
-  msg['Subject'] = "No Jugo :("
-  msg['From'] = me
-  msg['To'] = you
-
-  text = "No strong Jugo detected"
-  html = """\
-  <html>
-    <head></head>
-    <body>
-      <h1>Sorry!</h1>
-      <p>
-        No strong Jugo detected :(
-      </p>
-    </body>
-  </html>
-  """
-
-  part1 = MIMEText(text, 'plain')
-  part2 = MIMEText(html, 'html')
-
-  msg.attach(part1)
-  msg.attach(part2)
-
-  return msg
 
 
 def _get_msg_alert(txt):
   msg = MIMEMultipart('alternative')
   msg['Subject'] = "Jugo Alert! "
   msg['From'] = me
-  msg['To'] = you
+  msg['To'] = ", ".join(recipients)
 
   text = """\
     Jugo Alert!
@@ -88,6 +60,6 @@ def send_email_alert(msg):
   s.login(os.environ.get('MANDRILL_USERNAME'),
           os.environ.get('MANDRILL_APIKEY'))
 
-  msg = _get_msg_alert(msg) if len(msg) > 0 else _get_msg_no_alert()
-  s.sendmail(me, you, msg.as_string())
+  msg = _get_msg_alert(msg)
+  s.sendmail(me, recipients, msg.as_string())
   s.quit()
