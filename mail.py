@@ -9,7 +9,7 @@ me = "wave-watcher@psywerx.net"
 
 def _get_msg_alert(txt):
   msg = MIMEMultipart('alternative')
-  msg['Subject'] = "Jugo Alert! "
+  msg['Subject'] = "Jugo Alert!"
   msg['From'] = me
   msg['To'] = ", ".join(recipients)
 
