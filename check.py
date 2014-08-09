@@ -14,8 +14,8 @@ def check():
   result = [output_str.format(**p.__dict__) for p in parsed
             if p.is_strong_jugo()]
   if len(result) > 0:
-    return datetime.now(), "> Surf! Strong JUGO:", ", ".join(result)
     send_email_alert("\n".join(result))
+    return datetime.now(), "> Surf! Strong JUGO:", ", ".join(result)
   else:
     return datetime.now(), "> No surf :/"
 
