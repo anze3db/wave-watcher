@@ -21,7 +21,7 @@ class TestParser(TestBase):
   def test_yr_parser(self):
     parser = Parser.get_yr_parser()
     parsed = parser.parse(self.read_fixture('forecast.xml'))
-    self.assertTrue(len(parsed) == 38)
+    assert len(parsed) == 38
     first = parsed[0]
     self.assertIsInstance(first, Weather)
     self.assertIsInstance(first.windDirection, float)
