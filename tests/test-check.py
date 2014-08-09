@@ -28,7 +28,7 @@ def mock_SMTP():
 def test_check_false(monkeypatch):
   monkeypatch.setattr(requests, 'get', requests_get_false)
   m = Mock()
-  monkeypatch.setattr(smtplib, 'SMTP', lambda _0, _1: m)
+  monkeypatch.setattr(smtplib, 'SMTP', lambda *_: m)
   assert '> No surf :/' == check()[1]
   assert m.sendmail.call_count == 0
 
@@ -36,6 +36,6 @@ def test_check_false(monkeypatch):
 def test_check_true(monkeypatch):
   monkeypatch.setattr(requests, 'get', requests_get_true)
   m = Mock()
-  monkeypatch.setattr(smtplib, 'SMTP', lambda _0, _1: m)
+  monkeypatch.setattr(smtplib, 'SMTP', lambda *_: m)
   assert '> Surf! Strong JUGO:' == check()[1]
   assert m.sendmail.call_count == 1
