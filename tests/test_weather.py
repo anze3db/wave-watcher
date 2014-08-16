@@ -34,7 +34,6 @@ class TestWeather(TestBase):
   def setUp(self):
     super(TestWeather, self).setUp()
     self.parser = Parser.get_yr_parser()
-
     self.negative = self.read_fixture('forecast.xml')
     self.positive = self.read_fixture('forecast-positive.xml')
 

@@ -1,4 +1,2 @@
 export PYTHONPATH=src/:$PYTHONPATH
-py.test tests/test-check.py
-python tests/tests.py
-
+py.test tests
