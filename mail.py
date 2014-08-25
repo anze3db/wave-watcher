@@ -16,7 +16,7 @@ def _get_msg_alert(txt):
   text = """\
     Jugo Alert!
 
-    We have detected strong jugo at the following times:
+    We have detected a strong jugo at the following times:
     {times}
     Please visit the following links to confirm the forecast:
     http://prognoza.hr/karte.php?id=prizemne&param=vjtl&it=anim
@@ -28,7 +28,7 @@ def _get_msg_alert(txt):
     <body>
       <h1>Jugo Alert!</h1>
       <p>
-        We have detected strong jugo at the following times:
+        We have detected a strong jugo at the following times:
       </p>
       <p>
          {times}
