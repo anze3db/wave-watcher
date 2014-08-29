@@ -37,5 +37,5 @@ def test_check_true(monkeypatch):
   monkeypatch.setattr(requests, 'get', requests_get_true)
   m = Mock()
   monkeypatch.setattr(smtplib, 'SMTP', lambda *_: m)
-  assert '> Surf! Strong JUGO:' == check()[1]
+  assert '> Surf! Strong WIND:' == check()[1]
   assert m.sendmail.call_count == 1

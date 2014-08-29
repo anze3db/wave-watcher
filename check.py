@@ -15,7 +15,7 @@ def check():
             if p.is_strong_jugo()]
   if len(result) > 0:
     send_email_alert("\n".join(result))
-    return datetime.now(), "> Surf! Strong JUGO:", ", ".join(result)
+    return datetime.now(), "> Surf! Strong WIND:", ", ".join(result)
   else:
     return datetime.now(), "> No surf :/"
 

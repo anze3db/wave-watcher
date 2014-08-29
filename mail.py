@@ -9,14 +9,14 @@ me = "wave-watcher@psywerx.net"
 
 def _get_msg_alert(txt):
   msg = MIMEMultipart('alternative')
-  msg['Subject'] = "Jugo Alert!"
+  msg['Subject'] = "Wind Alert!"
   msg['From'] = me
   msg['To'] = ", ".join(recipients)
 
   text = """\
-    Jugo Alert!
+    Wind Alert!
 
-    We have detected a strong jugo at the following times:
+    We have detected strong wind at the following times:
     {times}
     Please visit the following links to confirm the forecast:
     http://prognoza.hr/karte.php?id=prizemne&param=vjtl&it=anim
@@ -26,9 +26,9 @@ def _get_msg_alert(txt):
   <html>
     <head></head>
     <body>
-      <h1>Jugo Alert!</h1>
+      <h1>Wind Alert!</h1>
       <p>
-        We have detected a strong jugo at the following times:
+        We have detected a strong wind at the following times:
       </p>
       <p>
          {times}
