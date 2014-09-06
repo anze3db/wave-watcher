@@ -1,5 +1,6 @@
 import smtplib
 import os
+import re
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
@@ -13,15 +14,6 @@ def _get_msg_alert(txt):
   msg['From'] = me
   msg['To'] = ", ".join(recipients)
 
-  text = """\
-    Wind Alert!
-
-    We have detected strong wind at the following times:
-    {times}
-    Please visit the following links to confirm the forecast:
-    http://prognoza.hr/karte.php?id=prizemne&param=vjtl&it=anim
-    http://prognoza.hr/karte.php?id=ecmwf&param=valovi&it=anim
-  """.format(times=txt)
   html = """\
   <html>
     <head></head>
@@ -45,8 +37,10 @@ def _get_msg_alert(txt):
       </p>
     </body>
   </html>
-  """.format(times=txt.replace("\n", '<br>'))
+  """
 
+  text = re.sub('<[^<]+?>', '', html).format(times=txt).strip()
+  html = html.format(times=txt.replace("\n", '<br>'))
   part1 = MIMEText(text, 'plain')
   part2 = MIMEText(html, 'html')
 
