@@ -20,7 +20,7 @@ def _get_msg_alert(txt):
     <body>
       <h1>Wind Alert!</h1>
       <p>
-        We have detected a strong wind at the following times:
+        We have detected strong wind at the following times:
       </p>
       <p>
          {times}
@@ -30,7 +30,8 @@ def _get_msg_alert(txt):
         <a
           href="http://prognoza.hr/karte.php?id=prizemne&param=vjtl&it=anim">
         Prognoza.hr Wind
-        </a><br>
+        </a>
+        <br>
         <a href="http://prognoza.hr/karte.php?id=ecmwf&param=valovi&it=anim">
         Prognoza.hr Waves
         </a>
