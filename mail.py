@@ -31,6 +31,7 @@ def _get_msg_alert(txt):
           href="http://wave-watcher.herokuapp.com/">
         Wave Watcher
         </a>
+        <br>
         <a
           href="http://prognoza.hr/karte.php?id=prizemne&param=vjtl&it=anim">
         Prognoza.hr Wind
