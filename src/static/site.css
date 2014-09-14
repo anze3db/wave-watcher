@@ -6,6 +6,5 @@ iframe {
 
 .direction {
   position: absolute;
-  transform: rotate(25.4deg);
   left: 50%;
 }
