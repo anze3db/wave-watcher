@@ -5,8 +5,6 @@ iframe {
 }
 
 .direction {
-  width: 0;
-  height: 0;
   position: absolute;
   transform: rotate(25.4deg);
   left: 50%;
