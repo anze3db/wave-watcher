@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+<head>
+  <title>Wave Watcher</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="/static/site.css">
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 page-header text-center">
+        <h1>Wave Watcher</h1>
+        <h3>
+          {% if has_waves %}
+            <span class="label label-success">Potential waves</span>
+          {% else %}
+            <span class="label label-danger">No waves</span>
+          {% endif %}
+        </h3>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+          <h2>Raw data:</h2>
+          <table class="table">
+            <tr>
+              <th>Time</th>
+              <th>Wind Direction</th>
+              <th class="text-right">Wind Speed</th>
+            </tr>
+          {% for result in results %}
+            <tr {% if result.is_strong_jugo() %}class="success"{% endif%}>
+              <td>{{result.time}}</td>
+              <td class="text-right"><div class="direction" style="transform: rotate({{result.windDirection}}deg);">T</div></td>
+              <td class="text-right">{{result.windSpeed}}</td>
+            </tr>
+          {% endfor %}
+          </table>
+        </div>
+        <div class="col-md-4">
+          <h2>Useful links:</h2>
+          <ul class="list-group">
+            <li class="list-group-item">
+              <a href="http://www.yr.no/place/Croatia/Istria/Medulin/">
+              yr.no (data source)
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="http://www.yr.no/kart/#lat=44.8225&lon=13.935&zoom=7&laga=vind&baseid=PunktUtlandet%3A3195307&proj=900913">
+              yr.no (wind)
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a
+                href="http://prognoza.hr/karte.php?id=prizemne&param=vjtl&it=anim">
+              Prognoza.hr Wind
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="http://prognoza.hr/karte.php?id=ecmwf&param=valovi&it=anim">
+              Prognoza.hr Waves
+              </a>
+            </li>
+          </ul>
+        </div>
+        <!--
+        <div class="col-md-12 tab-pane active" id="visual">
+          <h2>Visual</h2>
+          <iframe style="width:100%; height:550px;" src="http://www.yr.no/kart/#lat=44.8225&lon=13.935&zoom=7&laga=vind&baseid=PunktUtlandet%3A3195307&proj=900913"></iframe>
+        </div>
+        -->
+    </div>
+  </div>
+</body>
+</html>

@@ -11,6 +11,7 @@ def check():
   parser = Parser.get_yr_parser()
   parsed = parser.parse(page.text)
   output_str = "On: {time} (ws: {windSpeed}, wd: {windDirection})"
+  print parsed
   result = [output_str.format(**p.__dict__) for p in parsed
             if p.is_strong_jugo()]
   if len(result) > 0:

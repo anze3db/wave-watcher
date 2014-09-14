@@ -1,0 +1,4 @@
+. venv/bin/activate
+export WV_DEBUG=true
+export PYTHONPATH=src/:$PYTHONPATH
+python src/app.py
