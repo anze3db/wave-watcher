@@ -6,4 +6,4 @@ class Weather(object):
   def is_strong_jugo(self):
     return self.windDirection > 112.5 and\
         self.windDirection < 225.5 and\
-        self.windSpeed > 7.2
+        self.windSpeed > 5.5
