@@ -28,13 +28,13 @@
         <table class="table">
           <tr>
             <th>Time</th>
-            <th>Wind Direction</th>
+            <th class="text-right">Wind Direction</th>
             <th class="text-right">Wind Speed</th>
           </tr>
         {% for result in results %}
           <tr {% if result.is_strong_jugo() %}class="success"{% endif%}>
             <td>{{result.time}}</td>
-            <td class="text-right"><div class="direction" style="transform: rotate({{result.windDirection}}deg);">T</div></td>
+            <td class="text-right">{{result.windDirection}}&deg;<div class="direction" style="transform: rotate({{result.windDirection}}deg);">T</div></td>
             <td class="text-right">{{result.windSpeed}}</td>
           </tr>
         {% endfor %}
