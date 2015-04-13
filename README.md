@@ -1,7 +1,7 @@
 Wave Watcher [![Build Status](https://travis-ci.org/Smotko/wave-watcher.svg?branch=master)](https://travis-ci.org/Smotko/wave-watcher/builds)
 ============
 
-Simple service that monitors wind speed/direction in the adriatic sea
+Simple service that monitors wind speed/direction in the Adriatic sea
 
 Dev:
 ----
@@ -14,6 +14,3 @@ Dev:
 
     # run check script
     ./run
-
-
-

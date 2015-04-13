@@ -19,5 +19,5 @@ def index():
   return render_template("index.html", results=parsed, has_waves=has_waves)
 
 if __name__ == "__main__":
-  app.debug = os.environ.get('WV_DEBUG', False)
+  app.debug = os.environ.get('WW_DEBUG', False)
   app.run()
