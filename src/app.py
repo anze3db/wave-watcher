@@ -20,4 +20,4 @@ def index():
 
 if __name__ == "__main__":
   app.debug = os.environ.get('WW_DEBUG', False)
-  app.run()
+  app.run(host='0.0.0.0')

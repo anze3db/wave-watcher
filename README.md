@@ -1,16 +1,18 @@
-Wave Watcher [![Build Status](https://travis-ci.org/Smotko/wave-watcher.svg?branch=master)](https://travis-ci.org/Smotko/wave-watcher/builds)
-============
+# Wave Watcher [![Build Status](https://travis-ci.org/Smotko/wave-watcher.svg?branch=master)](https://travis-ci.org/Smotko/wave-watcher/builds)
 
 Simple service that monitors wind speed/direction in the Adriatic sea
 
-Dev:
-----
+## Requirements
 
-    # install requirements
-    pip install -r requirements.txt
+1. [Docker](https://docs.docker.com/installation/#installation)
 
-    # run tests
-    ./run_tests
+## Build & Run:
 
-    # run check script
-    ./run
+```bash
+    # Build
+    docker-compose build
+    # Run web app:
+    docker-compose up
+    # Run tests
+    docker-compose run web run_tests
+```
