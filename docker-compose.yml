@@ -6,5 +6,11 @@ web:
     - "5000:5000"
   volumes:
     - web:/code
+gofetch:
+  build: gofetch/
+  links:
+    - db
+  volumes:
+    - gofetch:/go
 db:
   image: postgres
