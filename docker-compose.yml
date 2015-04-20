@@ -11,7 +11,7 @@ gofetch:
   links:
     - db
   volumes:
-    - gofetch:/go
+    - gofetch:/go/gofetch
 db:
   image: postgres
   ports:

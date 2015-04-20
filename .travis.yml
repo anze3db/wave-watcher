@@ -4,5 +4,6 @@ python:
 install: "pip install -r web/requirements.txt"
 before_script:
   - export PYTHONPATH=$PYTHONPATH:$(pwd)/web/src
-  - export PATH=$PATH:$(pwd)/bin
+  - export PATH=$PATH:$(pwd)/web/bin
+  - cd web/
 script: run_tests
