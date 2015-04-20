@@ -1,0 +1,4 @@
+#!/bin/bash
+
+URL="postgres://postgres:$DB_ENV_POSTGRES_PASSWORD@$DB_PORT_5432_TCP_ADDR:$DB_PORT_5432_TCP_PORT?sslmode=disable"
+migrate -url $URL -path ./src/fetcher/migrations $1 $2

@@ -1,10 +1,21 @@
 web:
-  build: .
+  build: web/
   links:
     - db
   ports:
     - "5000:5000"
   volumes:
-    - .:/code
+    - web:/code
+gofetch:
+  build: gofetch/
+  links:
+    - db
+  volumes:
+    - gofetch:/go/gofetch
 db:
   image: postgres
+  ports:
+    - "5432:5432"
+  environment:
+    - POSTGRES_PASSWORD=0902e2018e3fbd0e6
+    - PSQL_TRUST_LOCALNET=true
