@@ -20,6 +20,6 @@ func printErr(err error) {
 	}
 }
 
-func print(s string) {
-	log.Print(s)
+func print(i ...interface{}) {
+	log.Printf("%s\n", i)
 }
