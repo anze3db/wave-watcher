@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-func Db() *sql.DB {
+func db() *sql.DB {
 	dbinfo := fmt.Sprintf("postgres://postgres:%s@%s:%s?sslmode=disable",
 		os.Getenv("DB_ENV_POSTGRES_PASSWORD"),
 		os.Getenv("DB_PORT_5432_TCP_ADDR"),

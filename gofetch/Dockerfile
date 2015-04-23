@@ -12,3 +12,4 @@ ADD . /go/gofetch
 RUN go get
 
 WORKDIR /go/gofetch/src/
+CMD go run main.go
