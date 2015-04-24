@@ -1,4 +1,4 @@
-package fetcher
+package gofetch
 
 import (
 	"testing"
@@ -20,16 +20,20 @@ func TestParseForecast(t *testing.T) {
 
 	forecast := ParseForecast(data)
 
-	d := forecast.LastUpdate
-	if d.Day() != 18 && d.Month() != 4 && d.Year() != 2015 {
-		t.Error("LastUpdate not parsed properly")
+	s := forecast.LastUpdate
+	if s != "2015-04-18T09:18:16" {
+		t.Errorf("LastUpdate not parsed properly %s", s)
 	}
-	d = forecast.NextUpdate
-	if d.Day() != 19 && d.Month() != 4 && d.Year() != 2015 {
-		t.Error("NextUpdate not parsed properly")
+	s = forecast.NextUpdate
+	if s != "2015-04-19T22:00:00" {
+		t.Errorf("NextUpdate not parsed properly %s", s)
 	}
-	s := forecast.Sun.Rise
+	s = forecast.Sun.Rise
 	if s != "2015-04-18T06:15:37" {
-		t.Errorf("SunRise not parsed properly %s", d)
+		t.Errorf("SunRise not parsed properly %s", s)
+	}
+	s = forecast.Sun.Set
+	if s != "2015-04-18T19:52:34" {
+		t.Errorf("SunRise not parsed properly %s", s)
 	}
 }

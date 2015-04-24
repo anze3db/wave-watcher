@@ -7,8 +7,9 @@ ENV GOPATH=$GOPATH:/go:/go/gofetch
 RUN go get github.com/tools/godep
 RUN go get github.com/mattes/migrate
 
-WORKDIR /go/gofetch/src/fetcher/
+WORKDIR /go/gofetch/src/gofetch/
 ADD . /go/gofetch
 RUN go get
 
-WORKDIR /go/gofetch
+WORKDIR /go/gofetch/src/
+CMD go run main.go
