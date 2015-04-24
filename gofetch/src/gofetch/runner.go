@@ -6,12 +6,13 @@ import (
 )
 
 func Run() {
+	defer rerunOnPanic()
 	next_update := FindLatest(Parse(Fetch()))
-	duration := next_update.Sub(time.Now())
+	duration := next_update.Sub(time.Now().Add(time.Hour * 2))
 	if duration.Minutes() < 5 {
 		duration = 5 * time.Minute
 	}
-	print("Next run in", duration)
+	print("Next run in", duration, next_update)
 	<-time.After(duration)
 	Run()
 }
@@ -36,7 +37,7 @@ func FindLatest(f Forecast) time.Time {
 	defer db.Close()
 
 	var next_update time.Time
-	err := db.QueryRow("SELECT next_update FROM readings WHERE last_update >= $1;", f.LastUpdate).Scan(&next_update)
+	err := db.QueryRow("SELECT next_update FROM readings WHERE last_update >= $1 ORDER BY last_update DESC LIMIT 1;", f.LastUpdate).Scan(&next_update)
 	if err == sql.ErrNoRows {
 		insert(f)
 		next_update, _ = time.Parse("2006-01-02T15:04:05", f.NextUpdate)
@@ -44,4 +45,12 @@ func FindLatest(f Forecast) time.Time {
 		panicErr(err)
 	}
 	return next_update
+}
+
+func rerunOnPanic() {
+	if r := recover(); r != nil {
+		print("Recovering from panic, rerunning in 1 min")
+		<-time.After(time.Minute)
+		Run()
+	}
 }
