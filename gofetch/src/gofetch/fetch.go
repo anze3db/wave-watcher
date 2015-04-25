@@ -11,8 +11,8 @@ const (
 
 func Fetch() string {
 	res, err := http.Get(URL)
-	panicErr(err)
+	panic(err)
 	data, err := ioutil.ReadAll(res.Body)
-	panicErr(err)
+	panic(err)
 	return string(data)
 }
