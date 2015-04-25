@@ -5,7 +5,7 @@ RUN echo $GOPATH
 ENV PATH=$PATH:bin/:/go/gofetch/bin
 ENV GOPATH=$GOPATH:/go:/go/gofetch
 RUN go get github.com/tools/godep
-RUN go get github.com/mattes/migrate
+RUN go get github.com/jinzhu/gorm
 
 WORKDIR /go/gofetch/src/gofetch/
 ADD . /go/gofetch
