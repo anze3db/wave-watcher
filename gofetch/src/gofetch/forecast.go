@@ -1,7 +1,6 @@
 package gofetch
 
 import (
-	"encoding/xml"
 	"github.com/jinzhu/gorm"
 	"time"
 )
@@ -28,42 +27,25 @@ type Forecast struct {
 	Set        time.Time
 }
 type ForecastXml struct {
-	LastUpdate Time `xml:"meta>lastupdate"`
-	NextUpdate Time `xml:"meta>nextupdate"`
+	LastUpdate string `xml:"meta>lastupdate"`
+	NextUpdate string `xml:"meta>nextupdate"`
 	Sun        struct {
-		Rise Time `xml:"rise,attr"`
-		Set  Time `xml:"set,attr"`
+		Rise string `xml:"rise,attr"`
+		Set  string `xml:"set,attr"`
 	} `xml:"sun"`
 }
 
 // Helper function for converting ForecastXml -> Forecast
 func (f *ForecastXml) ToForecast() Forecast {
 	fo := Forecast{}
-	fo.LastUpdate = f.LastUpdate.UTC()
-	fo.NextUpdate = f.NextUpdate.UTC()
-	fo.Rise = f.Sun.Rise.UTC()
-	fo.Set = f.Sun.Set.UTC()
+	parse := func(s string) time.Time {
+		t, err := time.Parse("2006-01-02T15:04:05", s)
+		panic(err)
+		return t
+	}
+	fo.LastUpdate = parse(f.LastUpdate)
+	fo.NextUpdate = parse(f.NextUpdate)
+	fo.Rise = parse(f.Sun.Rise)
+	fo.Set = parse(f.Sun.Set)
 	return fo
-}
-
-// My Custom Time struct so that I can overwrite the default formatter
-type Time struct {
-	time.Time
-}
-
-func (t *Time) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
-	// We don't really care about comments or unicorns
-	var v string
-	d.DecodeElement(&v, &start)
-	parse, err := time.Parse("2006-01-02T15:04:05", v)
-	panic(err)
-	*t = Time{parse}
-	return nil
-}
-
-func (t *Time) UnmarshalXMLAttr(attr xml.Attr) error {
-	parse, err := time.Parse("2006-01-02T15:04:05", attr.Value)
-	panic(err)
-	*t = Time{parse}
-	return nil
 }
