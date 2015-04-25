@@ -11,7 +11,7 @@ func Init() {
 func Run() {
 	defer rerunOnPanic()
 	forecast := Parse(Fetch())
-	db.session.FirstOrCreate(&forecast)
+	db.session.FirstOrCreate(&forecast, forecast)
 	next_update := forecast.NextUpdate
 	duration := next_update.Sub(time.Now().Add(time.Hour * 2))
 	if duration.Minutes() < 5 {
