@@ -5,14 +5,15 @@ import (
 )
 
 func Init() {
+	db.session.AutoMigrate(&Update{})
 	db.session.AutoMigrate(&Forecast{})
 }
 
 func Run() {
 	defer rerunOnPanic()
-	forecast := Parse(Fetch())
-	db.session.FirstOrCreate(&forecast, forecast)
-	next_update := forecast.NextUpdate
+	update := Parse(Fetch())
+	db.session.FirstOrCreate(&update, Update{LastUpdate: update.LastUpdate})
+	next_update := update.NextUpdate
 	duration := next_update.Sub(time.Now().Add(time.Hour * 2))
 	if duration.Minutes() < 5 {
 		duration = 5 * time.Minute

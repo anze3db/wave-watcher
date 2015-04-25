@@ -5,50 +5,64 @@ import (
 	"time"
 )
 
-// Why I seem to need two almost identical structs:
-//
-// ISSUE 1: I have to use Time when unmarshaling, because time.Time
-//          failes to unmarshal 2015-04-24T23:02:50 with: `parsing time
-//          "2015-04-24T23:02:50" as "2006-01-02T15:04:05Z07:00": cannot parse
-//          "" as "Z07:00""`
-// ISSUE 2: I have to use time.Time in the gorm struct, because I can't make
-//          it use Time to create & update db columns
-// ISSUE 3: I have no idea how to get Rise, Set attrs without defining a Sun
-//          struct, this is the XML structure
-//          <forecast>
-//            <sun rise="2015-04-25T06:04:04" set="2015-04-25T20:01:20"/>
-//          </forecast>
-// SOLUTION 1: I am now using string to parse dates in ForecastXml and then
-//             just convert manually in ToForecast, this removes the need for
-//             custom UnmarshalXML and UnmarshalXMLAttr functions
-
 type Forecast struct {
 	gorm.Model
-	LastUpdate time.Time
-	NextUpdate time.Time
-	Rise       time.Time
-	Set        time.Time
-}
-type ForecastXml struct {
-	LastUpdate string `xml:"meta>lastupdate"`
-	NextUpdate string `xml:"meta>nextupdate"`
-	Sun        struct {
-		Rise string `xml:"rise,attr"`
-		Set  string `xml:"set,attr"`
-	} `xml:"sun"`
+	UpdateId          int `sql:"index"`
+	From              time.Time
+	To                time.Time
+	WindDirection     float32
+	WindDirectionName string
+	WindSpeed         float32
+	WindSpeedName     string
+	Temperature       float32
+	TemperatureName   string
+	Pressure          float32
+	PressureName      string
+	Symbol            float32
+	SymbolName        string
 }
 
-// Helper function for converting ForecastXml -> Forecast
+// TODO: The code below is just boilerplate because I don't know how
+//       to access ie <winddirection deg=""> deg without a winddirection
+//       struct. I also don't know how to correctly parse time.Time
+type ForecastXml struct {
+	From          string `xml:"from,attr"`
+	To            string `xml:"to,attr"`
+	WindDirection struct {
+		Deg  float32 `xml:"deg,attr"`
+		Code string  `xml:"code,attr"`
+	} `xml:"windDirection"`
+	WindSpeed struct {
+		Mps  float32 `xml:"mps,attr"`
+		Name string  `xml:"name,attr"`
+	} `xml:"windSpeed"`
+	Temperature struct {
+		Value float32 `xml:"value,attr"`
+		Name  string  `xml:"unit,attr"`
+	} `xml:"temperature"`
+	Pressure struct {
+		Value float32 `xml:"value,attr"`
+		Name  string  `xml:"unit,attr"`
+	} `xml:"pressure"`
+	Symbol struct {
+		Number float32 `xml:"number,attr"`
+		Name   string  `xml:"name,attr"`
+	} `xml:"symbol"`
+}
+
 func (f *ForecastXml) ToForecast() Forecast {
-	fo := Forecast{}
-	parse := func(s string) time.Time {
-		t, err := time.Parse("2006-01-02T15:04:05", s)
-		panic(err)
-		return t
+	return Forecast{
+		From:              parse(f.From),
+		To:                parse(f.To),
+		WindDirection:     f.WindDirection.Deg,
+		WindDirectionName: f.WindDirection.Code,
+		WindSpeed:         f.WindSpeed.Mps,
+		WindSpeedName:     f.WindSpeed.Name,
+		Temperature:       f.Temperature.Value,
+		TemperatureName:   f.Temperature.Name,
+		Pressure:          f.Pressure.Value,
+		PressureName:      f.Pressure.Name,
+		Symbol:            f.Symbol.Number,
+		SymbolName:        f.Symbol.Name,
 	}
-	fo.LastUpdate = parse(f.LastUpdate)
-	fo.NextUpdate = parse(f.NextUpdate)
-	fo.Rise = parse(f.Sun.Rise)
-	fo.Set = parse(f.Sun.Set)
-	return fo
 }

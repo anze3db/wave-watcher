@@ -4,9 +4,9 @@ import (
 	"encoding/xml"
 )
 
-func Parse(data string) Forecast {
-	f := ForecastXml{}
+func Parse(data string) Update {
+	f := UpdateXml{}
 	err := xml.Unmarshal([]byte(data), &f)
 	panic(err)
-	return f.ToForecast()
+	return f.ToUpdate()
 }
