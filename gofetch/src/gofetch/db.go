@@ -31,5 +31,6 @@ func (db *Db) Init() {
 	panic(err)
 
 	db.session, err = gorm.Open("postgres", conn)
+	// db.session.LogMode(true)
 	panic(err)
 }

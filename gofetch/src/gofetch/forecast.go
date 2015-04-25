@@ -18,6 +18,9 @@ import (
 //          <forecast>
 //            <sun rise="2015-04-25T06:04:04" set="2015-04-25T20:01:20"/>
 //          </forecast>
+// SOLUTION 1: I am now using string to parse dates in ForecastXml and then
+//             just convert manually in ToForecast, this removes the need for
+//             custom UnmarshalXML and UnmarshalXMLAttr functions
 
 type Forecast struct {
 	gorm.Model
