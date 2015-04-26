@@ -19,3 +19,9 @@ db:
   environment:
     - POSTGRES_PASSWORD=0902e2018e3fbd0e6
     - PSQL_TRUST_LOCALNET=true
+nginx:
+  build: nginx/
+  ports:
+    - "80:80"
+  volumes:
+    - nginx/static:/usr/share/nginx/html
