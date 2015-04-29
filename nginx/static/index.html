@@ -1,9 +1,15 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
-  <title>Hello</title>
-</head>
-<body>
-  Hello WORLD
-</body>
+  <head>
+    <title>Wave Watcher</title>
+    <script src="bundle/traceur-runtime.js"></script>
+    <script src="bundle/system@0.16.7.js"></script>
+    <script src="bundle/angular2.dev.js"></script>
+  </head>
+  <body>
+    <script>
+      System.import('app');
+    </script>
+    <wave-watcher></wave-watcher>
+  </body>
 </html>

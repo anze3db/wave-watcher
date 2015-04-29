@@ -1,1 +1,3 @@
 venv/
+nginx/static/*.js
+nginx/static/components/*.js
