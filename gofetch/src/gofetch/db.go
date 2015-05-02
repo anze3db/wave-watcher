@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"github.com/jinzhu/gorm"
+	// Blank import needed for the db
 	_ "github.com/lib/pq"
 	"os"
 )
