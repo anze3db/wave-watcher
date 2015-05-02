@@ -5,9 +5,10 @@ import (
 	"time"
 )
 
+// Forecast is a struct that holds weather data for a given time period
 type Forecast struct {
 	gorm.Model
-	UpdateId          int `sql:"index"`
+	UpdateID          int `sql:"index"`
 	From              time.Time
 	To                time.Time
 	WindDirection     float32
@@ -25,7 +26,7 @@ type Forecast struct {
 // TODO: The code below is just boilerplate because I don't know how
 //       to access ie <winddirection deg=""> deg without a winddirection
 //       struct. I also don't know how to correctly parse time.Time
-type ForecastXml struct {
+type forecastXML struct {
 	From          string `xml:"from,attr"`
 	To            string `xml:"to,attr"`
 	WindDirection struct {
@@ -50,7 +51,7 @@ type ForecastXml struct {
 	} `xml:"symbol"`
 }
 
-func (f *ForecastXml) ToForecast() Forecast {
+func (f *forecastXML) ToForecast() Forecast {
 	return Forecast{
 		From:              parse(f.From),
 		To:                parse(f.To),
