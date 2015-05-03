@@ -6,11 +6,11 @@ import (
 )
 
 const (
-	URL = "http://www.yr.no/place/Croatia/Istria/Medulin/forecast.xml"
+	url = "http://www.yr.no/place/Croatia/Istria/Medulin/forecast.xml"
 )
 
 func Fetch() string {
-	res, err := http.Get(URL)
+	res, err := http.Get(url)
 	panic(err)
 	data, err := ioutil.ReadAll(res.Body)
 	panic(err)

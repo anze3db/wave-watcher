@@ -5,7 +5,7 @@ import (
 )
 
 func Parse(data string) Update {
-	f := UpdateXml{}
+	f := updateXML{}
 	err := xml.Unmarshal([]byte(data), &f)
 	panic(err)
 	return f.ToUpdate()

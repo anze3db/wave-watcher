@@ -22,6 +22,7 @@ import (
 //             just convert manually in ToForecast, this removes the need for
 //             custom UnmarshalXML and UnmarshalXMLAttr functions
 
+// Update is a stuct
 type Update struct {
 	gorm.Model
 	LastUpdate time.Time
@@ -30,18 +31,18 @@ type Update struct {
 	Set        time.Time
 	Forecasts  []Forecast
 }
-type UpdateXml struct {
+type updateXML struct {
 	LastUpdate string `xml:"meta>lastupdate"`
 	NextUpdate string `xml:"meta>nextupdate"`
 	Sun        struct {
 		Rise string `xml:"rise,attr"`
 		Set  string `xml:"set,attr"`
 	} `xml:"sun"`
-	Forecasts []ForecastXml `xml:"forecast>tabular>time"`
+	Forecasts []forecastXML `xml:"forecast>tabular>time"`
 }
 
 // Helper function for converting ForecastXml -> Forecast
-func (u *UpdateXml) ToUpdate() Update {
+func (u *updateXML) ToUpdate() Update {
 	var forecasts []Forecast
 
 	forecasts = make([]Forecast, len(u.Forecasts))
