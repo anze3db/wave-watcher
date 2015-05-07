@@ -25,3 +25,11 @@ nginx:
     - "80:80"
   volumes:
     - nginx/static:/usr/share/nginx/html
+api:
+  build: api/
+  links:
+    - db
+  volumes:
+    - api:/go/api
+  ports:
+    - "5000:5000"
