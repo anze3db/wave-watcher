@@ -2,7 +2,7 @@ package api
 
 import (
 	"github.com/ant0ine/go-json-rest/rest"
-	//	"gofetch"
+	"gofetch"
 	"log"
 	"net/http"
 )
@@ -13,24 +13,19 @@ func Serve() {
 	api := rest.NewApi()
 	api.Use(rest.DefaultDevStack...)
 	router, err := rest.MakeRouter(
-		rest.Get("/updates", getAllUpdates),
+		rest.Get("/api/updates", getAllUpdates),
 	)
 	if err != nil {
 		log.Fatal(err)
 	}
 	api.SetApp(router)
-	log.Printf("heello")
+	log.Printf("API Running")
 	log.Fatal(http.ListenAndServe("0.0.0.0:5000", api.MakeHandler()))
 }
 
-//
-// func getAllUpdates(w rest.ResponseWriter, r *rest.Request) {
-// 	updates := []gofetch.Update{}
-// 	session := gofetch.DB.Session()
-// 	session.Find(&updates)
-// 	w.WriteJson(&updates)
-// }
-
 func getAllUpdates(w rest.ResponseWriter, r *rest.Request) {
-	w.WriteJson(1)
+	updates := []gofetch.Update{}
+	session := gofetch.DB.Session()
+	session.Preload("Forecasts").Last(&updates)
+	w.WriteJson(&updates)
 }

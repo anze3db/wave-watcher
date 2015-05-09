@@ -10,6 +10,7 @@ import (
 )
 
 var db = initDb()
+var DB = db
 
 func initDb() Db {
 	d := Db{}
@@ -34,4 +35,8 @@ func (db *Db) Init() {
 	db.session, err = gorm.Open("postgres", conn)
 	// db.session.LogMode(true)
 	panic(err)
+}
+
+func (db *Db) Session() gorm.DB {
+	return db.session
 }
