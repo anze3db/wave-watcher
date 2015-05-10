@@ -1,17 +1,7 @@
-web:
-  build: web/
-  links:
-    - db
-  ports:
-    - "5000:5000"
-  volumes:
-    - web:/code
 gofetch:
   build: gofetch/
   links:
     - db
-  volumes:
-    - gofetch:/go/gofetch
 db:
   image: postgres
   ports:
@@ -25,3 +15,13 @@ nginx:
     - "80:80"
   volumes:
     - nginx/static:/usr/share/nginx/html
+  links:
+    - api
+api:
+  build: api/
+  volumes:
+    - /Users/smotko/webdev/wave-watcher/gofetch:/go/gofetch
+  links:
+    - db
+  ports:
+    - "5000:5000"
