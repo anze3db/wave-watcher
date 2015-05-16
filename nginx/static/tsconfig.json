@@ -15,7 +15,11 @@
     ],
     "files": [
         "./app.ts",
+        "./components/counter.ts",
         "./components/wavewatcher.ts",
+        "./jquery.d.ts",
+        "./models/forecats.ts",
+        "./moment.d.ts",
         "./typings/angular2/angular2.d.ts"
     ]
 }
