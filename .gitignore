@@ -1,6 +1,6 @@
 venv/
 nginx/static/*.js
 nginx/static/components/*.js
-
+nginx/static/models/*.js
 app/*.js
 app/components/*.js
