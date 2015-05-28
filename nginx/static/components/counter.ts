@@ -16,7 +16,8 @@ export class Counter {
     remaining: string;
     end: Date;
     constructor() {
-      // TODO: Find a better way of doing this
+      // TODO: Find a better way of doing this, this code should not be
+      //       in the constructor at all
       setTimeout(this.update.bind(this), 0);
       setInterval(this.update.bind(this), 1000);
     }
