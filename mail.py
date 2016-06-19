@@ -1,10 +1,9 @@
 import smtplib
 import os
-import re
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-recipients = ['ensmotko@gmail.com']  # , 'zidarsk8@gmail.com']
+recipients = os.environ.get('WW_EMAIL_LIST', "").split(',')
 me = "wave-watcher@psywerx.net"
 
 
@@ -14,50 +13,17 @@ def _get_msg_alert(txt):
   msg['From'] = me
   msg['To'] = ", ".join(recipients)
 
-  html = """\
-  <html>
-    <head></head>
-    <body>
-      <h1>Wind Alert!</h1>
-      <p>
-        We have detected strong wind at the following times:
-      </p>
-      <p>
-         {times}
-      </p>
-      <p>
-        Please visit the following links to confirm the forecast:<br>
-        <a
-          href="http://wave-watcher.herokuapp.com/">
-        Wave Watcher
-        </a>
-        <br>
-        <a
-          href="http://prognoza.hr/karte.php?id=prizemne&param=vjtl&it=anim">
-        Prognoza.hr Wind
-        </a>
-        <br>
-        <a href="http://prognoza.hr/karte.php?id=ecmwf&param=valovi&it=anim">
-        Prognoza.hr Waves
-        </a>
-      </p>
-    </body>
-  </html>
-  """
-
-  text = re.sub('<[^<]+?>', '', html).format(times=txt).strip()
-  html = html.format(times=txt.replace("\n", '<br>'))
-  part1 = MIMEText(text, 'plain')
+  with open('template.html', 'r') as template:
+    html = template.read().replace("{times}", txt)
   part2 = MIMEText(html, 'html')
 
-  msg.attach(part1)
   msg.attach(part2)
 
   return msg
 
 
 def send_email_alert(msg):
-  s = smtplib.SMTP(os.environ.get('smtp.postmarkapp.com'), 587)
+  s = smtplib.SMTP('smtp.postmarkapp.com', 587)
   s.login(os.environ.get('POSTMARK_API_KEY'),
           os.environ.get('POSTMARK_API_KEY'))
 
