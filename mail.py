@@ -4,7 +4,7 @@ import re
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-recipients = ['ensmotko@gmail.com', 'zidarsk8@gmail.com']
+recipients = ['ensmotko@gmail.com']  # , 'zidarsk8@gmail.com']
 me = "wave-watcher@psywerx.net"
 
 
@@ -57,9 +57,9 @@ def _get_msg_alert(txt):
 
 
 def send_email_alert(msg):
-  s = smtplib.SMTP('smtp.mandrillapp.com', 587)
-  s.login(os.environ.get('MANDRILL_USERNAME'),
-          os.environ.get('MANDRILL_APIKEY'))
+  s = smtplib.SMTP(os.environ.get('smtp.postmarkapp.com'), 587)
+  s.login(os.environ.get('POSTMARK_API_KEY'),
+          os.environ.get('POSTMARK_API_KEY'))
 
   msg = _get_msg_alert(msg)
   s.sendmail(me, recipients, msg.as_string())
