@@ -9,7 +9,8 @@ me = "wave-watcher@psywerx.net"
 
 def _get_msg_alert(txt):
   msg = MIMEMultipart('alternative')
-  msg['Subject'] = "Wind Alert!"
+  first_date = txt.split("\n<br>")[0]
+  msg['Subject'] = "Strong wind on {}!".format(first_date)
   msg['From'] = me
   msg['To'] = ", ".join(recipients)
 
