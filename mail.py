@@ -12,7 +12,6 @@ def _get_msg_alert(txt):
   first_date = txt.split("\n<br>")[0]
   msg['Subject'] = "Strong wind on {}!".format(first_date)
   msg['From'] = me
-  msg['To'] = ", ".join(recipients)
 
   with open('template.html', 'r') as template:
     html = template.read().replace("{times}", txt)
