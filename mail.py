@@ -1,6 +1,6 @@
 import smtplib
 import os
-import re
+import time
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
@@ -16,12 +16,10 @@ def _get_msg_alert(txt):
 
   with open('template.html', 'r') as template:
     html = template.read().replace("{times}", txt)
+    html = html.replace("{date}", str(time.time()))
   part2 = MIMEText(html, 'html')
-  part1 = MIMEText(re.sub('<[^<]+?>', '', html), 'plain')
 
   msg.attach(part2)
-  msg.attach(part1)
-
   return msg
 
 
