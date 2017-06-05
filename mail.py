@@ -24,9 +24,8 @@ def _get_msg_alert(txt):
 
 
 def send_email_alert(msg):
-  s = smtplib.SMTP('smtp.postmarkapp.com', 587)
-  s.login(os.environ.get('POSTMARK_API_KEY'),
-          os.environ.get('POSTMARK_API_KEY'))
+  s = smtplib.SMTP(os.environ.get('SMTP_ADDRESS'), 587)
+  s.login(me, os.environ.get('SMTP_PASSWORD'))
 
   msg = _get_msg_alert(msg)
   s.sendmail(me, recipients, msg.as_string())
