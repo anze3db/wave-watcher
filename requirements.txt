@@ -4,4 +4,4 @@ wsgiref==0.1.2
 pytest==2.6.1
 mock==1.0.1
 Flask==0.10.1
-gunicorn==19.1.1
+gunicorn==19.5.0
